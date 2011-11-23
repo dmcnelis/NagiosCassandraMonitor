@@ -22,9 +22,12 @@ Requirements
  * Java 1.6 or greater
  * Maven
  * Cassandra node (to monitor)
- * Nagios NPRE
  * Nagios server
  
  Usage
  -----
- 	check_cassandra_node.sh <hostname / IP>
+ 
+ Compile using maven:
+ 	mvn assemble:single
+ Copy jar file to your Nagios libexec folder
+ 	check_cassandra_node.sh <hostname / IP> <task> <warning thresholds> <critical thresholds>

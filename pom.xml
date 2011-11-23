@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>NagiosCassandraMonitor</groupId>
+  <artifactId>NagiosCassandraMonitor</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build> 
+  <defaultGoal>install</defaultGoal>
+<plugins>
+  <plugin>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>2.3.2</version>
+    <configuration>
+      <source>1.6</source>
+      <target>1.6</target>
+    </configuration>
+  </plugin>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>2.3.1</version>
+    <configuration>
+      <archive>
+        <manifest>
+          <addClasspath>true</addClasspath>
+          <mainClass>me.mcnelis.cassandra.nagios.CheckNode</mainClass>
+        </manifest>
+      </archive>
+    </configuration>
+  </plugin>
+  <plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <configuration>
+      <descriptorRefs>
+        <descriptorRef>jar-with-dependencies</descriptorRef>
+      </descriptorRefs>
+      <archive>
+        <manifest>
+          <mainClass>me.mcnelis.cassandra.nagios.CheckNode</mainClass>
+        </manifest>
+      </archive>
+    </configuration>
+    <executions>
+      <execution>
+        <id>make-my-jar-with-dependencies</id>
+        <phase>package</phase>
+        <goals>
+          <goal>single</goal>
+        </goals>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
+</build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.cassandra</groupId>
+  		<artifactId>cassandra-all</artifactId>
+  		<version>0.8.7</version>
+  	</dependency>
+  </dependencies>
+</project>
