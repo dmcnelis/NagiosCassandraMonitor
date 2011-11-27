@@ -13,28 +13,61 @@ public class ProcessTask {
 		this.checker = new StatusChecker(args[0]);
 		this.checkType = args[1];
 		if(args.length >= 3)
-			this.initWarn(args[2]);
+			this.initWarn(args[3]);
 		if(args.length >= 4)
-			this.initCritical(args[3]);
+			this.initCritical(args[2]);
 	}
 
 	public String process() {
 		StringBuffer output = new StringBuffer("");
-		int checkNumber = this.checker.getNumberOfLiveNodes();
-		if(this.warnThreshold.inRange(checkNumber)) {
-			if(!this.criticalThreshold.inRange(checkNumber)) {
-				output.append("Critical - ");
+		Object result = this.getResult();
+		if (result instanceof Integer) {
+			int checkNumber =(Integer) result;
+			if(!this.warnThreshold.inRange(checkNumber)) {
+				if(!this.criticalThreshold.inRange(checkNumber)) {
+					output.append("Critical - ");
+				} else {
+					output.append("Warn - ");
+				}
 			} else {
-				output.append("Warn - ");
+				output.append("OK - ");
 			}
 		} else {
 			output.append("OK - ");
 		}
 		output.append(this.checkType)
 			.append("=")
-			.append(checkNumber);
+			.append(result);
 		
 		return output.toString();
+	}
+	
+	
+	/**
+	 * this is a crappy way to do this.  Need to 
+	 * deal with this in a more elegant way
+	 * @return
+	 */
+	protected Object getResult() {
+		if(this.checkType.equalsIgnoreCase("numnodes"))
+			return this.checker.getNumberOfLiveNodes();
+		else if(this.checkType.equalsIgnoreCase("availableNodes"))
+			return this.checker.getReachableNodes();
+		else if(this.checkType.equalsIgnoreCase("deadNodes"))
+			return this.checker.getNumberOfUnreachableNodes();
+		else if(this.checkType.equalsIgnoreCase("deadNodeList"))
+			return this.checker.getUnreachableNodes();
+		else if(this.checkType.equalsIgnoreCase("status"))
+			return this.checker.getStatus();
+		else if(this.checkType.equalsIgnoreCase("token"))
+			return this.checker.getToken();
+		else if(this.checkType.equalsIgnoreCase("readlatency"))
+			return this.checker.getRecentReadLatency();
+		else if(this.checkType.equalsIgnoreCase("writelatency"))
+			return this.checker.getRecentWriteLatency();
+			
+		
+		return null;
 	}
 	
 	/**

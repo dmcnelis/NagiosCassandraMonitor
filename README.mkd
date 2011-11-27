@@ -28,6 +28,30 @@ Requirements
  -----
  
  Compile using maven:
+ 
  	mvn assemble:single
+ 	
  Copy jar file to your Nagios libexec folder
+ 
  	check_cassandra_node.sh <hostname / IP> <task> <warning thresholds> <critical thresholds>
+ 
+ Available Tasks (not case sensitive):
+ 
+ 	numnodes
+	availablenodes
+	deadNodes
+	deadNodeList
+	status
+	token
+	readlatency
+	writelatency
+	
+Check number of nodes:
+
+	//Warn if fewer than 4 nodes, critical if 3 nodes or fewer, OK otherwise:
+	check_cassandra_node.sh hostname numNodes -w4: -c3:
+	
+check what nodes are available:
+	
+	//Returns: OK - LIST OF NODES
+	check_cassandra_node.sh hostname availableNodes

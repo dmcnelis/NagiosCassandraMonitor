@@ -14,7 +14,7 @@ public class RangeHandler {
 	public boolean inRange(double d) {
 		
 		this.getRangeType();
-		
+		log.debug(this.rangeType.toString());
 		switch (this.rangeType) {
 		case ZEROTOLIMIT:
 			return this.inZeroToLimit(d);
@@ -40,21 +40,21 @@ public class RangeHandler {
 	}
 	
 	protected boolean inZeroToLimit(Double d) {
-		if(d > 0d && d < this.upperBound)
+		if(d >= 0d && d <= this.upperBound)
 			return true;
 		else
 			return false;
 	}
 	
 	protected boolean inLimitToInfinity(Double d) {
-		if(d > this.lowerBound)
+		if(d >= this.lowerBound)
 			return true;
 		else
 			return false;
 	}
 	
 	protected boolean inNegativeIninityToLimit(Double d) {
-		if(this.upperBound > d)
+		if(this.upperBound >= d)
 			return true;
 		else
 			return false;
@@ -89,10 +89,14 @@ public class RangeHandler {
 	 *	10:20 |  RangeType.EXCLUSIVEBETWEEN
 	 *	@10:20|	 RangeType.INCLUSIVEBETWEEN
 	 *
+	 * Non-range tests are currently set to be inclusive.
+	 * 
+	 * Can change this later, but right now that makes the most sense to me.
+	 *
 	 *  Defined at: http://nagiosplug.sourceforge.net/developer-guidelines.html#AEN33
 	 */
 	
-	protected RangeTypes getRangeType() {
+	public RangeTypes getRangeType() {
 		int colonIdx = this.rangeDefinition.indexOf(':');
 		if(colonIdx == -1) {
 			this.rangeType = RangeTypes.ZEROTOLIMIT;
@@ -135,5 +139,13 @@ public class RangeHandler {
 
 	public void setRangeDefinition(String rangeDefinition) {
 		this.rangeDefinition = rangeDefinition;
+	}
+
+	public double getUpperBound() {
+		return this.upperBound;
+	}
+	
+	public double getLowerBound() {
+		return this.lowerBound;
 	}
 }
