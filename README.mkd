@@ -28,7 +28,7 @@ Requirements
  Usage
  -----
  
- Compile using maven:
+ Compile  using maven:
  
  	mvn assembly:single
  	
