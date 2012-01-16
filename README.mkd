@@ -15,6 +15,7 @@ Things that I'm doing with this project
  * Moving hard-coded strings out to property files were applicable
  * Building in unit testing for future improvements
  * Adding additional reporting capabilities
+ 
 	
 Requirements
 ------------
