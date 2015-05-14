@@ -3,6 +3,8 @@ package me.mcnelis.cassandra.nagios;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.openmbean.CompositeData;
+
 import org.apache.log4j.Logger;
 
 
@@ -20,6 +22,16 @@ public class StatusChecker {
 	public StatusChecker(CassNodeInterface node) {
 		this.node = node;
 	}
+
+	public long getHeapUsage() {
+		this.node.setObject(CassandraObjects.JVM_MEM.toString());
+		CompositeData memData = (CompositeData) this.node.getAttribute("HeapMemoryUsage");
+		double used = (Long) memData.get("used");
+		double max = (Long) memData.get("max");
+
+		return Math.round(100.0 * used / max);
+	}
+	
 	public int getNumberOfLiveNodes() {
 		int size = this.getReachableNodes().size();
 		log.debug("Live nodes: " + size);
