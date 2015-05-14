@@ -1,0 +1,8 @@
+# Ignore emacs backups
+*~
+
+# Ignore output dir
+target/
+
+# if testing from the root dir, ignore the log
+nagios-monitor.log
