@@ -30,7 +30,7 @@ Requirements
  
  Compile  using maven:
  
- 	mvn clean compiler:compile assembly:single
+ 	mvn clean compiler:compile resources:resources jar:jar assembly:single shade:shade
  	
  Copy jar file to your Nagios libexec folder
  
