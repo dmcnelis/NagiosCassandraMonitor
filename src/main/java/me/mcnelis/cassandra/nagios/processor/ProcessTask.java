@@ -65,7 +65,8 @@ public class ProcessTask {
 			return this.checker.getRecentReadLatency();
 		else if(this.checkType.equalsIgnoreCase("writelatency"))
 			return this.checker.getRecentWriteLatency();
-			
+		else if(this.checkType.equalsIgnoreCase("heapUsage"))
+			return this.checker.getHeapUsage();
 		
 		return null;
 	}
