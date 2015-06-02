@@ -30,7 +30,7 @@ Requirements
  
  Compile  using maven:
  
- 	mvn assembly:single
+ 	mvn clean compiler:compile assembly:single
  	
  Copy jar file to your Nagios libexec folder
  
